@@ -3,13 +3,28 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
+const puppeteer = require('puppeteer');
+
+console.log('PUPPETEER', puppeteer.executablePath());
+
 exports.config = {
     allScriptsTimeout: 11000,
     specs: [
         './src/**/*.e2e-spec.ts'
     ],
     capabilities: {
-        'browserName': 'chrome'
+        'browserName': 'chrome',
+        chromeOptions: {
+            binary: puppeteer.executablePath(),
+            args: [
+                "--headless",
+                "--no-sandbox", // required to run without privileges in docker
+                "--user-data-dir=/tmp/chrome-test-profile",
+                "--disable-web-security",
+                "--disable-gpu",
+                "--window-size=800,600"
+            ]
+        }
     },
     directConnect: true,
     baseUrl: 'http://localhost:4200/',
