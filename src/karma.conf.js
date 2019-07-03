@@ -39,7 +39,7 @@ module.exports = function (config) {
                     '--disable-translate',
                     '--disable-extensions',
                     "--disable-dev-shm-usage",
-                    '--disable-web-security'
+                    '--disable-web-security',
                     '--user-data-dir=/tmp/chrome-test-profile',
                 ]
             }
