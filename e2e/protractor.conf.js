@@ -17,11 +17,13 @@ exports.config = {
         chromeOptions: {
             binary: puppeteer.executablePath(),
             args: [
-                "--headless",
                 "--no-sandbox", // required to run without privileges in docker
-                "--user-data-dir=/tmp/chrome-test-profile",
+                '--headless',
+                '--disable-gpu',
+                '--disable-translate',
+                '--disable-extensions',
                 "--disable-web-security",
-                "--disable-gpu",
+                "--user-data-dir=/tmp/chrome-test-profile",
                 "--window-size=800,600"
             ]
         }

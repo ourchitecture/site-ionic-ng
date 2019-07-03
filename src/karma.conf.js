@@ -34,6 +34,10 @@ module.exports = function (config) {
                 base: 'ChromeHeadless',
                 flags: [
                     '--no-sandbox', // required to run without privileges in docker
+                    '--headless',
+                    '--disable-gpu',
+                    '--disable-translate',
+                    '--disable-extensions',
                     '--user-data-dir=/tmp/chrome-test-profile',
                     '--disable-web-security'
                 ]
