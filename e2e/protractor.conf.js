@@ -23,6 +23,7 @@ exports.config = {
                 '--disable-translate',
                 '--disable-extensions',
                 "--disable-web-security",
+                "--disable-dev-shm-usage",
                 "--user-data-dir=/tmp/chrome-test-profile",
                 "--window-size=800,600"
             ]

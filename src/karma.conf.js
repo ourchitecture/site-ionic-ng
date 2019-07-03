@@ -38,8 +38,9 @@ module.exports = function (config) {
                     '--disable-gpu',
                     '--disable-translate',
                     '--disable-extensions',
-                    '--user-data-dir=/tmp/chrome-test-profile',
+                    "--disable-dev-shm-usage",
                     '--disable-web-security'
+                    '--user-data-dir=/tmp/chrome-test-profile',
                 ]
             }
         },
