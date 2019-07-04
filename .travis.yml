@@ -1,6 +1,6 @@
 language: node_js
 script:
    - npm run build:ci
-   - npm run lint:ci
+   - npm run lint
    - npm run test:ci
    - npm run e2e:ci
