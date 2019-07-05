@@ -1,14 +1,14 @@
 language: node_js
 script:
    - npm run build:ci
-   - npm run lint
-   - npm run test:ci
-   - npm run e2e:ci
+#    - npm run lint
+#    - npm run test:ci
+#    - npm run e2e:ci
 deploy:
   provider: pages
   skip_cleanup: true
   local_dir: docs
-  repo: ourchitecture.github.com
+  repo: ourchitecture/ourchitecture.github.com
   github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
