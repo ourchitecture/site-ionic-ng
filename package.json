@@ -12,11 +12,11 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
-        "build:ci": "ng build --configuration=ci",
+        "build:ci": "ng build --configuration=ci --progress=true",
         "test": "ng test",
         "test:ci": "ng test --configuration=ci",
         "lint": "ng lint",
-        "lint:ci": "ng lint --configuration=ci",
+        "lint:ci": "ng lint",
         "e2e": "ng e2e",
         "e2e:ci": "ng e2e --configuration=ci"
     },

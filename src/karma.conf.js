@@ -26,7 +26,8 @@ module.exports = function (config) {
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: false,
+        autoWatch: true,
+        singleRun: false,
         browserNoActivityTimeout: 60000,
         browsers: ['ChromeHeadlessNoSandbox'],
         customLaunchers: {
@@ -44,6 +45,5 @@ module.exports = function (config) {
                 ]
             }
         },
-        singleRun: true
     });
 };

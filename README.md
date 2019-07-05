@@ -1,5 +1,7 @@
 # Ourchitecture
 
+[![Build Status](https://travis-ci.org/ourchitecture/site-ionic-ng.svg?branch=master)](https://travis-ci.org/ourchitecture/site-ionic-ng)
+
 ## Setup
 
 This project was created with the [Ionic CLI](http://ionicframework.com/docs/v2/cli/start/) and [Angular](https://angular.io).
