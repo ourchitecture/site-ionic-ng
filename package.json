@@ -17,7 +17,7 @@
     "test:ci": "ng test --configuration=ci",
     "lint": "ng lint",
     "lint:ci": "ng lint",
-    "e2e": "ng e2e",
+    "e2e": "ng e2e --port=4201",
     "e2e:ci": "ng e2e --configuration=ci"
   },
   "private": true,
