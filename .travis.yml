@@ -8,7 +8,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   keep_history: true
-  local_dir: docs
+  local_dir: www
   repo: ourchitecture/ourchitecture.github.com
   github_token: $GITHUB_TOKEN
   target_branch: master
