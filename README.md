@@ -2,6 +2,11 @@
 
 [![Build Status](https://travis-ci.org/ourchitecture/site-ionic-ng.svg?branch=master)](https://travis-ci.org/ourchitecture/site-ionic-ng)
 
+[![CircleCI](https://circleci.com/gh/ourchitecture/site-ionic-ng.svg?style=svg)](https://circleci.com/gh/ourchitecture/site-ionic-ng)
+
+[![Build Status](https://api.cirrus-ci.com/github/ourchitecture/site-ionic-ng.svg)](https://cirrus-ci.com/github/ourchitecture/site-ionic-ng)
+
+
 ## Setup
 
 This project was created with the [Ionic CLI](http://ionicframework.com/docs/v2/cli/start/) and [Angular](https://angular.io).
