@@ -36,6 +36,7 @@ module.exports = function (config) {
                 flags: [
                     '--no-sandbox', // required to run without privileges in docker
                     '--headless',
+                    '--disable-setuid-sandbox',
                     '--disable-gpu',
                     '--disable-translate',
                     '--disable-extensions',

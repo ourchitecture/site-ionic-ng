@@ -19,6 +19,7 @@ exports.config = {
             args: [
                 "--no-sandbox", // required to run without privileges in docker
                 '--headless',
+                '--disable-setuid-sandbox',
                 '--disable-gpu',
                 '--disable-translate',
                 '--disable-extensions',
