@@ -10,6 +10,8 @@ task:
         - name: Lint
           lint_script: npm run lint:ci
         - name: Test
+          container:
+            image: weihanli/puppeteer:node10-stable
           lint_script: npm run test:ci
         - name: E2E Test
           container:
