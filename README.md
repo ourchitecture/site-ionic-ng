@@ -20,4 +20,4 @@ The version of Chromium must be kept in sync between Protractor and Puppeteer. T
 
 ## Continuous Integration
 
-This project utilizes [Travis CI](https://travis-ci.org) and [Cirrus CI](https://cirrus-ci.org/).
+This project utilizes [Travis CI](https://travis-ci.org), [Circle CI](https://circleci.com/) and [Cirrus CI](https://cirrus-ci.com/).
