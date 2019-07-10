@@ -1,5 +1,7 @@
 # Ourchitecture
 
+This web application is built and deployed as a GitHib Pages site for the [Ourchitecture organization](https://ourchitecture.github.io/) with distribution source updated in the [`ourchitecture.github.com`](https://github.com/ourchitecture/ourchitecture.github.com) repository.
+
 [![Build Status](https://travis-ci.org/ourchitecture/site-ionic-ng.svg?branch=master)](https://travis-ci.org/ourchitecture/site-ionic-ng)
 
 [![CircleCI](https://circleci.com/gh/ourchitecture/site-ionic-ng.svg?style=svg)](https://circleci.com/gh/ourchitecture/site-ionic-ng)
