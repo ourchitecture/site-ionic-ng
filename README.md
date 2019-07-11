@@ -2,9 +2,9 @@
 
 This web application is built and deployed as a GitHib Pages site for the [Ourchitecture organization](https://ourchitecture.github.io/) with distribution source updated in the [`ourchitecture.github.com`](https://github.com/ourchitecture/ourchitecture.github.com) repository.
 
-* Travis CI [![Build Status](https://travis-ci.org/ourchitecture/site-ionic-ng.svg?branch=master)](https://travis-ci.org/ourchitecture/site-ionic-ng)
-* Circle CI [![CircleCI](https://circleci.com/gh/ourchitecture/site-ionic-ng.svg?style=svg)](https://circleci.com/gh/ourchitecture/site-ionic-ng)
-* Cirrus CI [![Build Status](https://api.cirrus-ci.com/github/ourchitecture/site-ionic-ng.svg)](https://cirrus-ci.com/github/ourchitecture/site-ionic-ng)
+* [![Build Status](https://travis-ci.org/ourchitecture/site-ionic-ng.svg?branch=master)](https://travis-ci.org/ourchitecture/site-ionic-ng) Travis CI
+* [![CircleCI](https://circleci.com/gh/ourchitecture/site-ionic-ng.svg?style=svg)](https://circleci.com/gh/ourchitecture/site-ionic-ng) Circle CI
+* [![Build Status](https://api.cirrus-ci.com/github/ourchitecture/site-ionic-ng.svg)](https://cirrus-ci.com/github/ourchitecture/site-ionic-ng) Cirrus CI
 
 ## Setup
 
