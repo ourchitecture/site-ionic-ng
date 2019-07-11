@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -12,7 +13,7 @@ import { CovalentCommonModule } from '@covalent/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContentPageModule } from './content/content.module';
 
 @NgModule({
    declarations: [
@@ -21,16 +22,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
    entryComponents: [],
    imports: [
       BrowserModule,
+      BrowserAnimationsModule,
       HttpClientModule,
       IonicModule.forRoot(),
       MatCommonModule,
       CovalentCommonModule,
       AppRoutingModule,
-      BrowserAnimationsModule
+      ContentPageModule,
    ],
    providers: [
       StatusBar,
-      SplashScreen,
+      SplashScreen
    ],
    bootstrap: [
       AppComponent

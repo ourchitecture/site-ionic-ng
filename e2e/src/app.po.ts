@@ -6,6 +6,6 @@ export class AppPage {
     }
 
     getTitle() {
-        return element(by.deepCss('app-root ion-content ion-card-title')).getText();
+        return element(by.deepCss('app-root ion-content h1')).getText();
     }
 }

@@ -9,6 +9,6 @@ describe('new App', () => {
 
     it('should have title', () => {
         page.navigateTo();
-        expect(page.getTitle()).toContain('Our Technology Architecture');
+        expect(page.getTitle()).toContain('Welcome to Ourchitecture');
     });
 });
