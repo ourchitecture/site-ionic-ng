@@ -13,7 +13,6 @@ import { CovalentCommonModule } from '@covalent/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ContentPageModule } from './content/content.module';
 
 @NgModule({
    declarations: [
@@ -28,7 +27,6 @@ import { ContentPageModule } from './content/content.module';
       MatCommonModule,
       CovalentCommonModule,
       AppRoutingModule,
-      ContentPageModule,
    ],
    providers: [
       StatusBar,
