@@ -19,12 +19,12 @@
         "build:content": "node build/content",
         "build": "npm run build:content && ng build",
         "build:ci": "npm run build:content && ng build --configuration=ci --prod && cp ./www/index.html ./www/404.html",
-        "test": "ng test",
-        "test:ci": "ng test --configuration=ci",
+        "test": "npm run build:content && ng test",
+        "test:ci": "npm run build:content && ng test --configuration=ci",
         "lint": "ng lint",
         "lint:ci": "ng lint",
-        "e2e": "ng e2e --port=4201",
-        "e2e:ci": "ng e2e --configuration=ci"
+        "e2e": "npm run build:content && ng e2e --port=4201",
+        "e2e:ci": "npm run build:content && ng e2e --configuration=ci"
     },
     "dependencies": {
         "@angular/animations": "^7.2.2",
