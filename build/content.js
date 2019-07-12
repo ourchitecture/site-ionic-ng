@@ -5,8 +5,6 @@ const showdown = require('showdown');
 
 require('./showdown/extensions/ionicLinks');
 
-console.log('Extensions', showdown.getAllExtensions());
-
 const showdownConverter = new showdown.Converter({ extensions: ['ionic-links'] });
 
 function prepareFileSystemAndBuildContent() {
@@ -139,7 +137,7 @@ function buildContent(contentDirectoryPath, angularContentDirectoryPath) {
         const contentFileExtension = path.extname(contentFilePath);
         const contentFilePathWithoutExtension = contentFilePartialPath.replace(contentFileExtension, '');
 
-        console.log('Content file', contentFilePath, contentFileExtension);
+        // console.log('Content file', contentFilePath, contentFileExtension);
 
         const contentJson = getContentJson(knownFileTypes, contentFilePath, contentFileExtension);
 
