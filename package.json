@@ -20,7 +20,7 @@
         "build:content": "npm run clean:content && nodemon --watch content -e md ./build/content.js",
         "build:content:ci": "npm run clean:content && node ./build/content",
         "build": "npm run build:content && ng build",
-        "build:ci": "npm run build:content && ng build --configuration=ci --prod && cp ./www/index.html ./www/404.html",
+        "build:ci": "npm run build:content:ci && ng build --configuration=ci --prod && cp ./www/index.html ./www/404.html",
         "test": "npm run build:content && ng test",
         "test:ci": "npm run build:content && ng test --configuration=ci",
         "lint": "ng lint",
