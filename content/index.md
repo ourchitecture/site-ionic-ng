@@ -1,4 +1,4 @@
-# Welcome to Ourchitecture
+# ![Ourchitecture Logo](../src/assets/icon/favicon.png) Welcome to Ourchitecture
 
 Dedicated to Open Architecture, this site provides some useful resources for Technology Architects and the people they work with.
 
@@ -15,6 +15,10 @@ In ["What is IT Architecture"](https://iasaglobal.org/itabok/what-is-it-architec
 Architects, whether formally trained and certified or developed through experience, come from a variety of backgrounds and the title and roles of an architect at any company vary significantly. Generally, there are a few distinct [roles of architecture](./roles) performed by architects.
 
 ## Topic Categories
+
+![People, Process, Technology](../src/assets/figures/people-process-technology.png)
+
+In his 1964 paper "Applied Organization Changes in Industry" Harold Leavitt coined the phrase people, process, and technology. The triad has served as a guiding reference for decades and [continues today](https://www.cio.com/article/3331993/one-cio-s-perspective-on-the-people-process-and-technology-formula-for-business-success.html).
 
 * [[People]]
 * [[Process]]

@@ -4,8 +4,14 @@ const rimraf = require('rimraf');
 const showdown = require('showdown');
 
 require('./showdown/extensions/ionicLinks');
+require('./showdown/extensions/srcAssetLinks');
 
-const showdownConverter = new showdown.Converter({ extensions: ['ionic-links'] });
+const showdownConverter = new showdown.Converter({
+    extensions: [
+        'ionic-links',
+        'src-asset-links',
+    ],
+});
 
 function prepareFileSystemAndBuildContent() {
 
@@ -14,24 +20,7 @@ function prepareFileSystemAndBuildContent() {
     const angularDirectoryPath = './src/app';
     const angularContentDirectoryPath = path.join(angularDirectoryPath, contentDirectoryPath);
 
-    if (fs.existsSync(angularContentDirectoryPath)) {
-
-        console.log('Delete existing angular content directory', angularContentDirectoryPath);
-
-        rimraf(angularContentDirectoryPath, (err) => {
-
-            if (err) {
-                console.log('rimraf error deleting directory', err.message);
-            }
-
-            setTimeout(() => {
-                buildContent(contentDirectoryPath, angularContentDirectoryPath);
-            }, 300);
-        });
-
-    } else {
-        buildContent(contentDirectoryPath, angularContentDirectoryPath);
-    }
+    buildContent(contentDirectoryPath, angularContentDirectoryPath);
 }
 
 function getKnownFileTypes() {
