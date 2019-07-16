@@ -2,9 +2,9 @@
 
 Dedicated to Open Architecture, this site provides some useful resources for Technology Architects and the people they work with.
 
-**Business people:** technologists will be hard because you do not usually understand technology and they do not usually understand business. You generate waste when you do not focus on enabling valuable outcomes.
+**Business people:** working with technologists will be hard because you do not usually understand technology and they do not usually understand business. You generate waste when you do not focus on enabling valuable outcomes.
 
-**Technologists:** business people will be hard because you do not usually understand business and they do not usually understand technology. You generate waste when you do not focus on enabling valuable outcomes.
+**Technologists:** working with business people will be hard because you do not usually understand business and they do not usually understand technology. You generate waste when you do not focus on enabling valuable outcomes.
 
 **Business-Technology Translators:** You will go far, so long as you focus on enabling valuable outcomes.
 

@@ -97,57 +97,30 @@ function getContentJson(knownFileTypes, contentFilePath, contentFileExtension) {
     return contentJson;
 }
 
-function getAngularModuleTemplate(angularModuleImports, angularModuleRoutes, angularModuleDeclarations) {
-    return `import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+function getAngularModuleTemplate(
+    angularModuleImports,
+    angularModuleRoutes,
+    angularModuleDeclarations) {
 
-/* tslint:disable */
-${angularModuleImports}
+    const templateContent = fs.readFileSync('./build/templates/module.ts', { encoding: 'utf8' });
 
-@NgModule({
-    imports: [
-        CommonModule,
-        IonicModule,
-        RouterModule.forChild([
-            { path: '', component: IndexPage },
-            ${angularModuleRoutes},
-        ]),
-    ],
-    declarations: [
-        ${angularModuleDeclarations},
-    ]
-})
-export class ContentModule { }
-`;
+    return templateContent
+        .replace('${angularModuleImports}', angularModuleImports)
+        .replace('${angularModuleRoutes}', angularModuleRoutes)
+        .replace('${angularModuleDeclarations}', angularModuleDeclarations);
 }
 
-function getAngularComponentTemplate(angularComponentSelector, content, angularComponentName) {
-return `import { Component } from '@angular/core';
+function getAngularComponentTemplate(
+    angularComponentSelector,
+    content,
+    angularComponentName) {
 
-/* tslint:disable */
-@Component({
-selector: '${angularComponentSelector}',
-template: \`<ion-header>
-<ion-toolbar>
-<ion-buttons slot="start">
-    <ion-back-button></ion-back-button>
-</ion-buttons>
-<ion-title>
-    Ourchitecture
-</ion-title>
-</ion-toolbar>
-</ion-header>
+    const templateContent = fs.readFileSync('./build/templates/component.ts', { encoding: 'utf8' });
 
-<ion-content>
-<div class="ion-padding">
-${content}
-</div>
-</ion-content>\`,
-})
-export class ${angularComponentName} {}
-`;
+    return templateContent
+        .replace('${angularComponentSelector}', angularComponentSelector)
+        .replace('${content}', content)
+        .replace('${angularComponentName}', angularComponentName);
 }
 
 function buildAngularModuleTemplateData(angularComponentDeclarations) {
