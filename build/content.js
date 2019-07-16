@@ -225,6 +225,8 @@ function buildContent(contentDirectoryPath, angularContentDirectoryPath) {
 
     const knownFileTypes = getKnownFileTypes();
 
+    fs.copyFileSync('./build/templates/content.scss', path.join(angularContentDirectoryPath, './content.scss'));
+
     const angularComponentDeclarations = writeAngularComponents(knownFileTypes, contentDirectoryPath);
 
     writeAngularModule(knownFileTypes, angularComponentDeclarations);
