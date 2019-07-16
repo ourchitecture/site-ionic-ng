@@ -8,6 +8,8 @@ Dedicated to Open Architecture, this site provides some useful resources for Tec
 
 **Business-Technology Translators:** You will go far, so long as you focus on enabling valuable outcomes.
 
+![Enterprise, Traditional vs. Lean](../src/assets/figures/enterprise-traditional-lean.png)
+
 ## Architecture
 
 In ["What is IT Architecture"](https://iasaglobal.org/itabok/what-is-it-architecture/), the International Association of Architecture (IASA) defines an IT Architect as the technology strategist for the business and IT Architecture as the art and science of designing and delivering valuable technology strategy. Wikipedia takes a more traditional and verbose approach to [their definition of IT Architecture](https://en.wikipedia.org/wiki/Information_technology_architecture).
