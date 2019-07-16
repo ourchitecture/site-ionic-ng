@@ -48,7 +48,7 @@
             type: 'lang', //or output
             filter: (rawMarkdown, converter, options) => {
 
-                console.log(`showdown [${extensionName}]: filtering...`);
+                // console.log(`showdown [${extensionName}]: filtering...`);
 
                 let transformedMarkdown = rawMarkdown;
 

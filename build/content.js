@@ -97,100 +97,8 @@ function getContentJson(knownFileTypes, contentFilePath, contentFileExtension) {
     return contentJson;
 }
 
-const invalidAngularNameCharacterRegex = /[^a-zA-Z0-9]/g;
-
-function convertToTitleCase(text) {
-    return text
-        .replace(/(\w)(\w*)/g, (g0, g1, g2) => {
-            return g1.toUpperCase() + g2.toLowerCase();
-        })
-        .replace(invalidAngularNameCharacterRegex, '');
-}
-
-function buildContent(contentDirectoryPath, angularContentDirectoryPath) {
-
-    if (!fs.existsSync(angularContentDirectoryPath)) {
-        console.log('Create angular content directory', angularContentDirectoryPath);
-        fs.mkdirSync(angularContentDirectoryPath);
-    }
-
-    const knownFileTypes = getKnownFileTypes();
-
-    const contentFilePaths = fs.readdirSync(contentDirectoryPath);
-
-    const angularComponentDeclarations = [];
-
-    contentFilePaths.forEach(contentFilePartialPath => {
-
-        const contentFilePath = path.join(contentDirectoryPath, contentFilePartialPath);
-        const contentFileExtension = path.extname(contentFilePath);
-        const contentFilePathWithoutExtension = contentFilePartialPath.replace(contentFileExtension, '');
-
-        // console.log('Content file', contentFilePath, contentFileExtension);
-
-        const contentJson = getContentJson(knownFileTypes, contentFilePath, contentFileExtension);
-
-        const angularComponentFileNameWithoutExtension = `${contentFilePathWithoutExtension}.page`.toLowerCase();
-        const angularComponentFileName = `${angularComponentFileNameWithoutExtension}${knownFileTypes.typescript.ext[0]}`;
-        const angularComponentSelector = `content-${contentFilePathWithoutExtension.toLowerCase()}`;
-        const angularComponentName = `${convertToTitleCase(contentFilePathWithoutExtension)}Page`;
-
-        const angularComponentContent = `import { Component } from '@angular/core';
-
-/* tslint:disable */
-@Component({
-    selector: '${angularComponentSelector}',
-    template: \`<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title>
-            Ourchitecture
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
-
-<ion-content>
-    <div class="ion-padding">
-${contentJson.content}
-    </div>
-</ion-content>\`,
-})
-export class ${angularComponentName} {}
-`;
-
-        const angularFilePath = path.join('./src/app/content', angularComponentFileName);
-
-        angularComponentDeclarations.push({
-            importFileName: angularComponentFileNameWithoutExtension,
-            routePath: contentFilePathWithoutExtension,
-            name: angularComponentName,
-        });
-
-        console.log('Writing content to angular path', angularFilePath);
-        fs.writeFileSync(angularFilePath, angularComponentContent);
-    });
-
-    const angularModuleImports = angularComponentDeclarations
-        .map((c) => {
-            return `import { ${c.name} } from './${c.importFileName}';`;
-        })
-        .join('\n');
-
-    const angularModuleRoutes = angularComponentDeclarations
-        .map((c) => {
-            return `{ path: '${c.routePath}', component: ${c.name} }`;
-        })
-        .join(',\n\t\t\t');
-
-        const angularModuleDeclarations = angularComponentDeclarations
-            .map((c) => {
-                return c.name;
-            })
-            .join(',\n\t\t');
-
-    const angularModuleContent = `import { NgModule } from '@angular/core';
+function getAngularModuleTemplate(angularModuleImports, angularModuleRoutes, angularModuleDeclarations) {
+    return `import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
@@ -213,11 +121,140 @@ ${angularModuleImports}
 })
 export class ContentModule { }
 `;
+}
+
+function getAngularComponentTemplate(angularComponentSelector, content, angularComponentName) {
+return `import { Component } from '@angular/core';
+
+/* tslint:disable */
+@Component({
+selector: '${angularComponentSelector}',
+template: \`<ion-header>
+<ion-toolbar>
+<ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+</ion-buttons>
+<ion-title>
+    Ourchitecture
+</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="ion-padding">
+${content}
+</div>
+</ion-content>\`,
+})
+export class ${angularComponentName} {}
+`;
+}
+
+function buildAngularModuleTemplateData(angularComponentDeclarations) {
+
+    const angularModuleImports = angularComponentDeclarations
+        .map((c) => {
+            return `import { ${c.name} } from './${c.importFileName}';`;
+        })
+        .join('\n');
+
+    const angularModuleRoutes = angularComponentDeclarations
+        .map((c) => {
+            return `{ path: '${c.routePath}', component: ${c.name} }`;
+        })
+        .join(',\n\t\t\t');
+
+    const angularModuleDeclarations = angularComponentDeclarations
+        .map((c) => {
+            return c.name;
+        })
+        .join(',\n\t\t');
+
+    return {
+        imports: angularModuleImports,
+        routes: angularModuleRoutes,
+        declarations: angularModuleDeclarations,
+    };
+}
+
+const invalidAngularNameCharacterRegex = /[^a-zA-Z0-9]/g;
+
+function convertToTitleCase(text) {
+    return text
+        .replace(/(\w)(\w*)/g, (g0, g1, g2) => {
+            return g1.toUpperCase() + g2.toLowerCase();
+        })
+        .replace(invalidAngularNameCharacterRegex, '');
+}
+
+function writeAngularComponents(knownFileTypes, contentDirectoryPath) {
+
+    const contentFilePaths = fs.readdirSync(contentDirectoryPath);
+
+    const angularComponentDeclarations = [];
+
+    contentFilePaths.forEach(contentFilePartialPath => {
+
+        const contentFilePath = path.join(contentDirectoryPath, contentFilePartialPath);
+        const contentFileExtension = path.extname(contentFilePath);
+        const contentFilePathWithoutExtension = contentFilePartialPath.replace(contentFileExtension, '');
+
+        // console.log('Content file', contentFilePath, contentFileExtension);
+
+        const contentJson = getContentJson(knownFileTypes, contentFilePath, contentFileExtension);
+
+        const angularComponentFileNameWithoutExtension = `${contentFilePathWithoutExtension}.page`.toLowerCase();
+        const angularComponentFileName = `${angularComponentFileNameWithoutExtension}${knownFileTypes.typescript.ext[0]}`;
+        const angularComponentSelector = `content-${contentFilePathWithoutExtension.toLowerCase()}`;
+        const angularComponentName = `${convertToTitleCase(contentFilePathWithoutExtension)}Page`;
+
+        const angularComponentContent = getAngularComponentTemplate(
+            angularComponentSelector,
+            contentJson.content,
+            angularComponentName);
+
+        const angularFilePath = path.join('./src/app/content', angularComponentFileName);
+
+        angularComponentDeclarations.push({
+            importFileName: angularComponentFileNameWithoutExtension,
+            routePath: contentFilePathWithoutExtension,
+            name: angularComponentName,
+        });
+
+        console.log('Writing content to angular path', angularFilePath);
+        fs.writeFileSync(angularFilePath, angularComponentContent);
+    });
+
+    return angularComponentDeclarations;
+}
+
+function writeAngularModule(knownFileTypes, angularComponentDeclarations) {
+
+    const angularModuleTemplateData = buildAngularModuleTemplateData(angularComponentDeclarations)
+
+    const angularModuleContent = getAngularModuleTemplate(
+        angularModuleTemplateData.imports,
+        angularModuleTemplateData.routes,
+        angularModuleTemplateData.declarations);
 
     const angulareModuleFilePath = path.join('./src/app/content', 'content.module' + knownFileTypes.typescript.ext[0]).toLowerCase();
 
     console.log('Writing content to angular path', angulareModuleFilePath);
     fs.writeFileSync(angulareModuleFilePath, angularModuleContent);
+}
+
+function buildContent(contentDirectoryPath, angularContentDirectoryPath) {
+
+    if (!fs.existsSync(angularContentDirectoryPath)) {
+        console.log('Create angular content directory', angularContentDirectoryPath);
+        fs.mkdirSync(angularContentDirectoryPath);
+    }
+
+    const knownFileTypes = getKnownFileTypes();
+
+    const angularComponentDeclarations = writeAngularComponents(knownFileTypes, contentDirectoryPath);
+
+    writeAngularModule(knownFileTypes, angularComponentDeclarations);
 }
 
 console.log('Building content...');
