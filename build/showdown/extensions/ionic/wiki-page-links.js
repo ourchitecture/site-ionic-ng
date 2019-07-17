@@ -32,7 +32,7 @@
     // If you have regexes or some piece of calculation that is immutable
     // this is the best place to put them.
 
-    const extensionName = 'ionic-links';
+    const extensionName = 'ionic-wiki-page-links';
     const ionicLinkRegex = /\[\[([^\]\]]+)\]\]/g;
     const invalidLinkCharacterRegex = /[^a-z0-9-_]/g;
     const multipleHyphenRegex = /[-]+/;

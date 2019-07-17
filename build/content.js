@@ -3,12 +3,12 @@ const path = require('path');
 const rimraf = require('rimraf');
 const showdown = require('showdown');
 
-require('./showdown/extensions/ionicLinks');
-require('./showdown/extensions/srcAssetLinks');
+require('./showdown/extensions/ionic/wiki-page-links');
+require('./showdown/extensions/src-asset-links');
 
 const showdownConverter = new showdown.Converter({
     extensions: [
-        'ionic-links',
+        'ionic-wiki-page-links',
         'src-asset-links',
     ],
 });
