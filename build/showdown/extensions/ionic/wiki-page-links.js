@@ -37,7 +37,6 @@
     const invalidLinkCharacterRegex = /[^a-z0-9-_]/g;
     const multipleHyphenRegex = /[-]+/;
     const HYPHEN = '-';
-    const RELATIVE_URL_PREFIX = './';
 
     // The following method will register the extension with showdown
     showdown.extension(extensionName, function () {
