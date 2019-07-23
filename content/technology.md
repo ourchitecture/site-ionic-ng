@@ -11,6 +11,7 @@ See the ThoughtWorks [Technology Radar](http://www.thoughtworks.com/radar).
 * [[Internet of Things]]
 * [[Microservices]]
 * [[Serverless]]
+* [[Testing]]
 
 ## Web Front-End
 
@@ -49,6 +50,11 @@ See the ThoughtWorks [Technology Radar](http://www.thoughtworks.com/radar).
 * [Java: Apache Common CLI](https://commons.apache.org/cli/)
 * [Java: picocli](https://github.com/remkop/picocli)
 * [JS: oclif](https://oclif.io/)
+
+### Services
+
+* [Java: Spring](https://start.spring.io/)
+* [Swagger Editor](http://editor.swagger.io/)
 
 ## Patterns
 
