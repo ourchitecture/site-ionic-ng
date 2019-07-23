@@ -12,6 +12,16 @@ See the ThoughtWorks [Technology Radar](http://www.thoughtworks.com/radar).
 * [[Microservices]]
 * [[Serverless]]
 
+## Web Front-End
+
+* [Angular](https://angular.io/)
+    * [Teradata Covalent](https://teradata.github.io/covalent/)
+    * [Material](https://material.angular.io/)
+* [Ionic](https://ionicframework.com/)
+* [React](https://reactjs.org/)
+* [StencilJS](https://stenciljs.com/)
+* [Vue.js](https://vuejs.org/)
+
 ## Tools
 
 * [Asciidoctor](https://asciidoctor.org/docs/user-manual/)
@@ -31,13 +41,20 @@ See the ThoughtWorks [Technology Radar](http://www.thoughtworks.com/radar).
 * [Kubernetes](http://kubernetes.io/) and [Awesome Kubernetes](https://github.com/ramitsurana/awesome-kubernetes) resources
 * [OpenStack](https://www.openstack.org/)
 
+## Templates
+
+### Command-Line
+
+* [Go: urfave cli](https://github.com/urfave/cli)
+* [Java: Apache Common CLI](https://commons.apache.org/cli/)
+* [Java: picocli](https://github.com/remkop/picocli)
+* [JS: oclif](https://oclif.io/)
+
 ## Patterns
 
 If you are new to Patterns, start with [Brad Appleton's patterns introduction](http://www.bradapp.com/docs/patterns-intro.html). See the definition of Patterns as described in [TOGAF Architecture Patterns](http://pubs.opengroup.org/architecture/togaf9-doc/m/chap25.html).
 
 For applied patterns, consider browsing the architecture of well-established open source projects. You may also consider exploring [StackShare](https://stackshare.io/stacks) for example technology stacks; maintaining some healthy skepticism about how representative these stacks are and how applicable they may be to the context of your own environment.
-
-## Patterns
 
 ### Cloud Patterns​​
 

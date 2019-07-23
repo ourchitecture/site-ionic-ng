@@ -41,14 +41,36 @@ Checkout the [open list of Continuous Integration services](https://github.com/l
 
 * [CodeCov](https://codecov.io/)
 
+## Package Management
+
+### Open Source
+
+* [.NET: Nuget](https://www.nuget.org/)
+* [Debian: Packages](https://www.debian.org/distrib/packages)
+* [Go](https://go-search.org/)
+* [GitHub Package Registry](https://github.com/features/package-registry)
+* [Java: Maven](https://mvnrepository.com/)
+* [jFrog Artifactory](https://jfrog.com/artifactory/)
+* [JS: NPM](https://npmjs.com)
+* [Python: PyPI](https://pypi.org/)
+* [Ruby: Gems](https://rubygems.org/)
+* [Sonatype Nexus](https://www.sonatype.com/nexus-repository-sonatype)
+
 ## Risk Scans
 
 ### Open Source
 
-* [Anchore](https://anchore.com/)
+* [Containers: Anchore](https://anchore.com/)
+* [Java: FindBugs](https://github.com/findbugsproject/findbugs)
+* [SonarQube](https://www.sonarqube.org/)
 
 ### Proprietary
 
 #### Free for Open Source
 
 * [Coverity](https://scan.coverity.com/)
+
+#### Paid
+
+* [jFrog XRay](https://jfrog.com/xray/)
+* [Nexus IQ](https://www.sonatype.com/nexus-iq-server)
