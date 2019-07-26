@@ -7,7 +7,6 @@ jobs:
         - script: npm run e2e:ci
         - stage: deploy
           provider: pages
-          test: skip
           script: npm run build:ci
           skip_cleanup: true
           keep_history: true
