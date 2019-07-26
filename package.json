@@ -16,8 +16,8 @@
     ],
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
-        "start:prod": "http-server -p 4200 -c-1 www",
+        "start": "npm run build:content:ci && ng serve",
+        "start:prod": "npm run build:ci && http-server -p 4200 -c-1 www",
         "clean:content": "rimraf ./src/app/content",
         "build:content": "npm run clean:content && nodemon --watch content --watch build -e \"md,ts\" ./build/content.js",
         "build:content:ci": "npm run clean:content && node ./build/content",

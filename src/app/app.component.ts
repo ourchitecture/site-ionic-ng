@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -10,7 +10,7 @@ import { PwaService } from './pwa-service.service';
     selector: 'app-root',
     templateUrl: 'app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     private promptEvent;
 
@@ -25,6 +25,13 @@ export class AppComponent {
     }
 
     initializeApp() {
+        this.platform.ready().then(() => {
+            this.statusBar.styleDefault();
+            this.splashScreen.hide();
+        });
+    }
+
+    ngOnInit() {
 
         this.pwa.beforeInstallPromptEvent.subscribe((promptEvent) => {
 
@@ -40,7 +47,6 @@ export class AppComponent {
                 translucent: true,
                 buttons: [
                     {
-                        side: 'start',
                         icon: 'home',
                         text: 'Yes',
                         handler: () => {
@@ -59,12 +65,6 @@ export class AppComponent {
                 console.log('[ourchitecture] PWA prompting for install...');
                 toast.present();
             });
-        });
-
-        this.platform.ready().then(() => {
-
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
         });
     }
 }
