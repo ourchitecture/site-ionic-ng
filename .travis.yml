@@ -2,7 +2,7 @@ language: node_js
 cache:
     directories:
         - node_modules # NPM packages
-install: npm ci
+install: npm install --prefer-offline --progress=false
 jobs:
     include:
         - stage: test
