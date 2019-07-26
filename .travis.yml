@@ -4,7 +4,7 @@ install: npm ci
 jobs:
     include:
         - stage: cache
-          script: echo "Just a cache job"
+          script: 'true'
         - stage: test
           script: npm run lint:ci
           install: skip
@@ -15,7 +15,7 @@ jobs:
         - stage: deploy
           install: skip
           provider: pages
-          script: echo "Skipping tests"
+          script: 'true'
           before_deploy: npm run build:ci
           skip_cleanup: true
           keep_history: true
