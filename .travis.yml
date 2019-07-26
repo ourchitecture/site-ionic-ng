@@ -1,12 +1,12 @@
 language: node_js
 jobs:
     include:
+        - stage: build
+          script: npm run build:ci
         - stage: test
           script: npm run lint:ci
         - script: npm run test:ci
         - script: npm run e2e:ci
-        - stage: build
-          script: npm run build:ci
         - stage: deploy
           provider: pages
           skip_cleanup: true
