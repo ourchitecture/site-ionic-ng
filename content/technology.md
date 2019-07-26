@@ -15,6 +15,7 @@ See the ThoughtWorks [Technology Radar](http://www.thoughtworks.com/radar).
 
 ## Web Front-End
 
+* [web.dev](https://web.dev/)
 * [Angular](https://angular.io/)
     * [Teradata Covalent](https://teradata.github.io/covalent/)
     * [Material](https://material.angular.io/)
