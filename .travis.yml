@@ -13,7 +13,6 @@ jobs:
           skip_cleanup: true
           keep_history: true
           provider: pages
-          script: 'true'
           local_dir: www
           repo: ourchitecture/ourchitecture.github.com
           github_token: $GITHUB_TOKEN
