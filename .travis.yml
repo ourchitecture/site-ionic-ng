@@ -1,16 +1,19 @@
 language: node_js
-script:
-   - npm run lint:ci
-   - npm run test:ci
-   - npm run e2e:ci
-   - npm run build:ci
-deploy:
-  provider: pages
-  skip_cleanup: true
-  keep_history: true
-  local_dir: www
-  repo: ourchitecture/ourchitecture.github.com
-  github_token: $GITHUB_TOKEN
-  target_branch: master
-  on:
-    branch: master
+jobs:
+    include:
+        - stage: test
+          script: npm run lint:ci
+        - script: npm run test:ci
+        - script: npm run e2e:ci
+        - stage: build
+          script: npm run build:ci
+        - stage: deploy
+          provider: pages
+          skip_cleanup: true
+          keep_history: true
+          local_dir: www
+          repo: ourchitecture/ourchitecture.github.com
+          github_token: $GITHUB_TOKEN
+          target_branch: master
+          on:
+              branch: master
