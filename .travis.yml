@@ -9,7 +9,7 @@ jobs:
         - script: npm run e2e:ci
         - stage: deploy
           provider: pages
-          script: npm run build:ci
+          before_deploy: npm run build:ci
           skip_cleanup: true
           keep_history: true
           local_dir: www
