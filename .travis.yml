@@ -1,21 +1,18 @@
 language: node_js
-cache:
-    directories:
-        - node_modules # NPM packages
-install: npm install --prefer-offline --progress=false
-jobs:
-    include:
-        - stage: test
-          script: npm run build:content:ci && npm run lint:ci && npm run test:ci && npm run e2e:ci
-        - stage: deploy
-          install: skip # use cache instead
-          before_deploy: npm run build:content:ci && npm run build:ci
-          skip_cleanup: true
-          keep_history: true
-          provider: pages
-          local_dir: www
-          repo: ourchitecture/ourchitecture.github.com
-          github_token: $GITHUB_TOKEN
-          target_branch: master
-          on:
-              branch: master
+install: npm ci
+script:
+    - npm run build:content:ci
+    - npm run lint:ci
+    - npm run test:ci
+    - npm run e2e:ci
+    - npm run build:ci
+deploy:
+    skip_cleanup: true
+    keep_history: true
+    provider: pages
+    local_dir: www
+    repo: ourchitecture/ourchitecture.github.com
+    github_token: $GITHUB_TOKEN
+    target_branch: master
+    on:
+        branch: master
