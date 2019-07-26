@@ -10,13 +10,16 @@ export class PwaService {
 
     constructor(private swUpdate: SwUpdate) {
 
-        swUpdate.available.subscribe(event => {
+        this.swUpdate.available.subscribe(event => {
+            console.log('[ourchitecture] sw.update.available()');
             if (this.askUserToUpdate()) {
                 window.location.reload();
             }
         });
 
         window.addEventListener('beforeinstallprompt', event => {
+
+            console.log('[ourchitecture] sw.beforeinstallprompt()');
 
             event.preventDefault();
 

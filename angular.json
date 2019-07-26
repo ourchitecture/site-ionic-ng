@@ -69,9 +69,6 @@
                             ],
                             "serviceWorker": true,
                             "ngswConfigPath": "src/ngsw-config.json"
-                        },
-                        "ci": {
-                            "progress": false
                         }
                     }
                 },
@@ -83,9 +80,6 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "app:build:production"
-                        },
-                        "ci": {
-                            "progress": false
                         }
                     }
                 },
@@ -111,7 +105,7 @@
                         ]
                     },
                     "configurations": {
-                        "ci": {
+                        "production": {
                             "progress": false,
                             "watch": false
                         }
@@ -168,9 +162,6 @@
                     "configurations": {
                         "production": {
                             "devServerTarget": "app:serve:production"
-                        },
-                        "ci": {
-                            "devServerTarget": "app:serve:ci"
                         }
                     }
                 },

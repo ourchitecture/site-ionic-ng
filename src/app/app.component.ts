@@ -25,8 +25,11 @@ export class AppComponent {
     initializeApp() {
 
         this.platform.ready().then(() => {
+
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+
+            console.log('[ourchitecture] platform.ready(): PWA prompt event?', this.pwa.promptEvent ? true : false);
 
             if (this.pwa.promptEvent) {
                 this.toaster.create({
@@ -41,15 +44,19 @@ export class AppComponent {
                             icon: 'star',
                             text: 'Yes',
                             handler: () => {
+                                console.log('[ourchitecture] PWA installing...');
                                 this.pwa.promptEvent.prompt();
                             }
                         }, {
                             text: 'No',
                             role: 'cancel',
-                            handler: () => {}
+                            handler: () => {
+                                console.log('[ourchitecture] PWA install cancelled');
+                            }
                         }
                     ],
                 }).then((toast) => {
+                    console.log('[ourchitecture] PWA prompting for install...');
                     toast.present();
                 });
             }
