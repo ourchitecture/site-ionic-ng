@@ -17,6 +17,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
+        "start:prod": "http-server -p 4200 -c-1 www",
         "clean:content": "rimraf ./src/app/content",
         "build:content": "npm run clean:content && nodemon --watch content --watch build -e \"md,ts\" ./build/content.js",
         "build:content:ci": "npm run clean:content && node ./build/content",
@@ -69,6 +70,7 @@
         "@types/node": "~12.0.0",
         "codelyzer": "~4.5.0",
         "fs-extra": "^8.1.0",
+        "http-server": "^0.11.1",
         "jasmine-core": "~2.99.1",
         "jasmine-spec-reporter": "~4.2.1",
         "karma": "~4.1.0",

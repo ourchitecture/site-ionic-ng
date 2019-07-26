@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 
 @Injectable({
@@ -6,7 +6,7 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class PwaService {
 
-    public promptEvent;
+    @Output() beforeInstallPromptEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(private swUpdate: SwUpdate) {
 
@@ -17,13 +17,18 @@ export class PwaService {
             }
         });
 
-        window.addEventListener('beforeinstallprompt', event => {
+        window.addEventListener('beforeinstallprompt', (event) => {
 
             console.log('[ourchitecture] sw.beforeinstallprompt()');
 
+            if (!event) {
+                console.log('[ourchitecture] sw.beforeinstallprompt(): no event');
+                return;
+            }
+
             event.preventDefault();
 
-            this.promptEvent = event;
+            this.beforeInstallPromptEvent.emit(event);
         });
     }
 

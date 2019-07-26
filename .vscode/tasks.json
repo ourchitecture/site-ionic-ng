@@ -74,6 +74,11 @@
             "type": "npm",
             "script": "build:content",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "start:prod",
+            "problemMatcher": []
         }
     ]
 }

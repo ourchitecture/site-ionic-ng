@@ -12,6 +12,8 @@ import { PwaService } from './pwa-service.service';
 })
 export class AppComponent {
 
+    private promptEvent;
+
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
@@ -24,43 +26,45 @@ export class AppComponent {
 
     initializeApp() {
 
+        this.pwa.beforeInstallPromptEvent.subscribe((promptEvent) => {
+
+            this.promptEvent = promptEvent;
+
+            console.log('[ourchitecture] PWA prompt event, displaying toast...');
+
+            this.toaster.create({
+                header: 'Ourchitecture Application',
+                message: 'Install this application?',
+                position: 'top',
+                showCloseButton: true,
+                translucent: true,
+                buttons: [
+                    {
+                        side: 'start',
+                        icon: 'star',
+                        text: 'Yes',
+                        handler: () => {
+                            console.log('[ourchitecture] PWA installing...');
+                            this.promptEvent.prompt();
+                        }
+                    }, {
+                        text: 'No',
+                        role: 'cancel',
+                        handler: () => {
+                            console.log('[ourchitecture] PWA install cancelled');
+                        }
+                    }
+                ],
+            }).then((toast) => {
+                console.log('[ourchitecture] PWA prompting for install...');
+                toast.present();
+            });
+        });
+
         this.platform.ready().then(() => {
 
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-
-            if (this.pwa.promptEvent) {
-
-                console.log('[ourchitecture] PWA prompt event, displaying toast...');
-
-                this.toaster.create({
-                    header: 'Ourchitecture Application',
-                    message: 'Install this application?',
-                    position: 'top',
-                    showCloseButton: true,
-                    translucent: true,
-                    buttons: [
-                        {
-                            side: 'start',
-                            icon: 'star',
-                            text: 'Yes',
-                            handler: () => {
-                                console.log('[ourchitecture] PWA installing...');
-                                this.pwa.promptEvent.prompt();
-                            }
-                        }, {
-                            text: 'No',
-                            role: 'cancel',
-                            handler: () => {
-                                console.log('[ourchitecture] PWA install cancelled');
-                            }
-                        }
-                    ],
-                }).then((toast) => {
-                    console.log('[ourchitecture] PWA prompting for install...');
-                    toast.present();
-                });
-            }
         });
     }
 }
