@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -22,6 +23,7 @@ describe('AppComponent', () => {
             declarations: [AppComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             imports: [
+                RouterTestingModule,
                 ServiceWorkerModule.register('', { enabled: false }),
             ],
             providers: [
