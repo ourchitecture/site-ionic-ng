@@ -2,11 +2,9 @@ container:
     image: node:latest
 
 task:
-    populate_script: npm ci
+    populate_script: npm ci && npm run build:content:ci
 
     matrix:
-        - name: Build
-          lint_script: npm run build:ci
         - name: Lint
           lint_script: npm run lint:ci
         - name: Test
@@ -17,3 +15,5 @@ task:
           container:
             image: weihanli/puppeteer:node10-stable
           lint_script: npm run e2e:ci
+        - name: Build
+          lint_script: npm run build:ci

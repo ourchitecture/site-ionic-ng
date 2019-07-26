@@ -12,7 +12,8 @@ jobs:
         steps:
             - checkout
             - run: npm ci
-            - run: npm run build:ci
+            - run: npm run build:content:ci
             - run: npm run lint:ci
             - run: npm run test:ci
             - run: npm run e2e:ci
+            - run: npm run build:ci
