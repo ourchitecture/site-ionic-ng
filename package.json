@@ -21,13 +21,13 @@
         "build:content": "npm run clean:content && nodemon --watch content --watch build -e \"md,ts\" ./build/content.js",
         "build:content:ci": "npm run clean:content && node ./build/content",
         "build": "npm run build:content && ng build",
-        "build:ci": "npm run build:content:ci && ng build --prod && cp ./www/index.html ./www/404.html",
+        "build:ci": "ng build --prod && cp ./www/index.html ./www/404.html",
         "test": "npm run build:content && ng test",
-        "test:ci": "npm run build:content:ci && ng test --prod=true",
+        "test:ci": "ng test --prod=true",
         "lint": "ng lint",
         "lint:ci": "ng lint",
         "e2e": "npm run build:content && ng e2e --port=4201",
-        "e2e:ci": "npm run build:content:ci && ng e2e --prod=true"
+        "e2e:ci": "ng e2e --prod=true"
     },
     "dependencies": {
         "@angular/animations": "^7.2.2",

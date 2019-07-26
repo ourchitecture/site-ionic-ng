@@ -6,10 +6,10 @@ install: npm ci
 jobs:
     include:
         - stage: test
-          script: npm run lint:ci && npm run test:ci && npm run e2e:ci
+          script: npm run build:content:ci && npm run lint:ci && npm run test:ci && npm run e2e:ci
         - stage: deploy
-          install: skip
-          before_deploy: npm run build:ci
+          install: skip # use cache instead
+          before_deploy: npm run build:content:ci && npm run build:ci
           skip_cleanup: true
           keep_history: true
           provider: pages
