@@ -5,22 +5,15 @@ cache:
 install: npm ci
 jobs:
     include:
-        - stage: cache
-          script: 'true'
         - stage: test
-          script: npm run lint:ci
-          install: skip
-        - script: npm run test:ci
-          install: skip
-        - script: npm run e2e:ci
-          install: skip
+          script: npm run lint:ci && npm run test:ci && npm run e2e:ci
         - stage: deploy
           install: skip
-          provider: pages
-          script: 'true'
           before_deploy: npm run build:ci
           skip_cleanup: true
           keep_history: true
+          provider: pages
+          script: 'true'
           local_dir: www
           repo: ourchitecture/ourchitecture.github.com
           github_token: $GITHUB_TOKEN
