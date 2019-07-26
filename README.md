@@ -8,7 +8,7 @@ This web application is built and deployed as a GitHib Pages site for the [Ourch
 
 ## Setup
 
-This project was created with the [Ionic CLI](http://ionicframework.com/docs/v2/cli/start/) and [Angular](https://angular.io).
+This project was created with the [Ionic CLI](http://ionicframework.com/docs/v2/cli/start/) and [Angular](https://angular.io). Progressive Web Application (PWA) and Service Worker support [were added](https://angular.io/guide/service-worker-getting-started).
 
 ## Contributing
 
