@@ -29,9 +29,10 @@ export class AppComponent {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
 
-            console.log('[ourchitecture] platform.ready(): PWA prompt event?', this.pwa.promptEvent ? true : false);
-
             if (this.pwa.promptEvent) {
+
+                console.log('[ourchitecture] PWA prompt event, displaying toast...');
+
                 this.toaster.create({
                     header: 'Ourchitecture Application',
                     message: 'Install this application?',
