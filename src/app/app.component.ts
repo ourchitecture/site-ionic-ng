@@ -33,15 +33,15 @@ export class AppComponent {
             console.log('[ourchitecture] PWA prompt event, displaying toast...');
 
             this.toaster.create({
-                header: 'Ourchitecture Application',
+                header: 'Ourchitecture',
                 message: 'Install this application?',
                 position: 'top',
-                showCloseButton: true,
+                showCloseButton: false,
                 translucent: true,
                 buttons: [
                     {
                         side: 'start',
-                        icon: 'star',
+                        icon: 'home',
                         text: 'Yes',
                         handler: () => {
                             console.log('[ourchitecture] PWA installing...');
