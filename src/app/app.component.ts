@@ -37,70 +37,86 @@ export class AppComponent implements OnInit {
 
         this.router.events.subscribe((event) => {
 
-            if (event instanceof NavigationEnd) {
+            try {
 
-                const navEndEvent = event as NavigationEnd;
+                if (event instanceof NavigationEnd) {
 
-                const currentPageTitle = this.title.getTitle();
+                    const navEndEvent = event as NavigationEnd;
 
-                let pageTitle = currentPageTitle;
+                    const currentPageTitle = this.title.getTitle();
 
-                const titleElements = document.getElementsByTagName('ion-title');
+                    let pageTitle = currentPageTitle;
 
-                if (titleElements.length > 0) {
-                    pageTitle = titleElements[0].textContent;
-                    this.title.setTitle(pageTitle);
+                    const titleElements = document.getElementsByTagName('ion-title');
+
+                    if (titleElements.length > 0) {
+                        pageTitle = titleElements[0].textContent;
+                        this.title.setTitle(pageTitle);
+                    }
+
+                    const pageViewData = {
+                        page_title: pageTitle,
+                        page_path: navEndEvent.urlAfterRedirects,
+                    };
+
+                    console.log('Sending page view to GA', pageViewData);
+
+                    (window as any).gtag('config', 'UA-144592331-1', {
+                        page_title: pageTitle,
+                        page_path: navEndEvent.urlAfterRedirects,
+                    });
                 }
 
-                const pageViewData = {
-                    page_title: pageTitle,
-                    page_path: navEndEvent.urlAfterRedirects,
-                };
-
-                console.log('Sending page view to GA', pageViewData);
-
-                (window as any).gtag('config', 'UA-144592331-1', {
-                    page_title: pageTitle,
-                    page_path: navEndEvent.urlAfterRedirects,
-                });
+            } catch (gaError) {
+                console.log('ERROR: Unexpected google analytics route event error', gaError.message);
             }
         });
     }
 
     ngOnInit() {
 
-        this.pwa.beforeInstallPromptEvent.subscribe((promptEvent) => {
+        try {
+            this.pwa.beforeInstallPromptEvent.subscribe((promptEvent) => {
 
-            this.promptEvent = promptEvent;
+                try {
+                    this.promptEvent = promptEvent;
 
-            console.log('[ourchitecture] PWA prompt event, displaying toast...');
+                    console.log('[ourchitecture] PWA prompt event, displaying toast...');
 
-            this.toaster.create({
-                header: 'Ourchitecture',
-                message: 'Install this application?',
-                position: 'top',
-                showCloseButton: false,
-                translucent: true,
-                buttons: [
-                    {
-                        icon: 'home',
-                        text: 'Yes',
-                        handler: () => {
-                            console.log('[ourchitecture] PWA installing...');
-                            this.promptEvent.prompt();
-                        }
-                    }, {
-                        text: 'No',
-                        role: 'cancel',
-                        handler: () => {
-                            console.log('[ourchitecture] PWA install cancelled');
-                        }
-                    }
-                ],
-            }).then((toast) => {
-                console.log('[ourchitecture] PWA prompting for install...');
-                toast.present();
+                    this.toaster.create({
+                        header: 'Ourchitecture',
+                        message: 'Install this application?',
+                        position: 'top',
+                        showCloseButton: false,
+                        translucent: true,
+                        buttons: [
+                            {
+                                icon: 'home',
+                                text: 'Yes',
+                                handler: () => {
+                                    console.log('[ourchitecture] PWA installing...');
+                                    this.promptEvent.prompt();
+                                }
+                            }, {
+                                text: 'No',
+                                role: 'cancel',
+                                handler: () => {
+                                    console.log('[ourchitecture] PWA install cancelled');
+                                }
+                            }
+                        ],
+                    }).then((toast) => {
+                        console.log('[ourchitecture] PWA prompting for install...');
+                        toast.present();
+                    });
+
+                } catch (toasttError) {
+                    console.log('ERROR: Unexpected toast notification error', toasttError.message);
+                }
             });
-        });
+
+        } catch (pwaError) {
+            console.log('ERROR: Unexpected pwa beforeInstallPromptEvent error', pwaError.message);
+        }
     }
 }

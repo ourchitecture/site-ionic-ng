@@ -1,6 +1,8 @@
 dist: trusty
 addons:
   chrome: stable
+before_install:
+    - google-chrome-stable --version
 language: node_js
 install: npm ci
 script:
