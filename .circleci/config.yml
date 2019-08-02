@@ -52,6 +52,7 @@ jobs:
                     - "7e:b8:2d:f6:d9:7d:2f:c3:61:c2:dd:d1:1a:d2:b9:43"
             - run:
                 name: Deploy docs to gh-pages branch
+                # https://www.npmjs.com/package/gh-pages
                 command: npx gh-pages@2.0.1 -d www -r https://github.com/ourchitecture/ourchitecture.github.com -b master -m "[skip ci] Deploy site-ionic-ng" --dotfiles
 
 workflows:
