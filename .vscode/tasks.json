@@ -38,6 +38,7 @@
         {
             "type": "npm",
             "script": "build",
+            "group": "build",
             "problemMatcher": []
         },
         {
@@ -48,6 +49,7 @@
         {
             "type": "npm",
             "script": "build:ci",
+            "group": "build",
             "problemMatcher": []
         },
         {
@@ -73,11 +75,18 @@
         {
             "type": "npm",
             "script": "build:content",
+            "group": "build",
             "problemMatcher": []
         },
         {
             "type": "npm",
             "script": "start:prod",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "build:content:ci",
+            "group": "build",
             "problemMatcher": []
         }
     ]

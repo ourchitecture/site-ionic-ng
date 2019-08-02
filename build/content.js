@@ -1,26 +1,32 @@
 const fs = require('fs-extra');
 const path = require('path');
-const rimraf = require('rimraf');
+const yaml = require('js-yaml');
 const showdown = require('showdown');
 
-require('./showdown/extensions/ionic/wiki-page-links');
+require('./showdown/extensions/html-remove-p');
+require('./showdown/extensions/angular/components');
+require('./showdown/extensions/angular/wiki-page-links');
 require('./showdown/extensions/src-asset-links');
 
 const showdownConverter = new showdown.Converter({
     extensions: [
-        'ionic-wiki-page-links',
+        'ng-components',
+        'ng-wiki-page-links',
         'src-asset-links',
+        'html-remove-p',
     ],
 });
 
 function prepareFileSystemAndBuildContent() {
 
-    const contentDirectoryPath = './content';
+    const contentConfigText = fs.readFileSync('./content.yml', 'utf8');
+    const contentConfig = yaml.safeLoad(contentConfigText);
 
-    const angularDirectoryPath = './src/app';
-    const angularContentDirectoryPath = path.join(angularDirectoryPath, contentDirectoryPath);
+    const contentDirectoryPath = contentConfig.content.dir;
 
-    buildContent(contentDirectoryPath, angularContentDirectoryPath);
+    const angularContentDirectoryPath = path.join(contentConfig.ng.module.dir, contentConfig.ng.module.targetDir);
+
+    buildContent(contentConfig, contentDirectoryPath, angularContentDirectoryPath);
 }
 
 function getKnownFileTypes() {
@@ -28,60 +34,62 @@ function getKnownFileTypes() {
         text: {
             contentType: 'text/html; charset=UTF-8',
             ext: ['.txt'],
-            isEnabled: false,
-            transform: (content) => content,
         },
         json: {
             contentType: 'application/json; charset=UTF-8',
             ext: ['.json'],
-            isEnabled: false,
-            transform: (content) => content,
         },
         typescript: {
             contentType: 'application/typescript; charset=UTF-8',
             ext: ['.ts'],
-            isEnabled: false,
-            transform: (content) => content,
         },
         markdown: {
             contentType: 'text/markdown; charset=UTF-8',
             ext: ['.md'],
-            isEnabled: true,
-            transform: (content) => {
-                return showdownConverter.makeHtml(content);
-            },
         },
         asciidoc: {
             contentType: 'text/asciidoc; charset=UTF-8',
             ext: ['.adoc', '.asciidoc'],
-            isEnabled: true,
-            transform: (content) => content,
         },
     };
 }
 
-function getContentJson(knownFileTypes, contentFilePath, contentFileExtension) {
+function getTransformFileTypes(knownFileTypes) {
 
-    const rawContent = fs.readFileSync(contentFilePath, { encoding: 'utf8' });
+    const fileTypes = {
+        markdown: knownFileTypes.markdown,
+        asciidoc: knownFileTypes.asciidoc,
+    };
+
+    fileTypes.markdown.transform = (content) => {
+        return showdownConverter.makeHtml(content);
+    };
+
+    fileTypes.asciidoc.transform = (content) => content;
+
+    return fileTypes;
+}
+
+function getContentJson(transformFileTypes, contentFilePath, contentFileExtension) {
+
+    const rawContent = fs.readFileSync(contentFilePath, 'utf8');
 
     let matchFound = false;
-    let contentType = knownFileTypes.text.contentType;
     let transformedContent = rawContent;
 
-    Object.keys(knownFileTypes).forEach((knownFileTypeKey) => {
+    Object.keys(transformFileTypes).forEach((transformFileTypeKey) => {
 
         if (matchFound) {
             return false;
         }
 
-        const knownFileType = knownFileTypes[knownFileTypeKey];
+        const transformFileType = transformFileTypes[transformFileTypeKey];
 
-        if (knownFileType.isEnabled && knownFileType.ext.indexOf(contentFileExtension) >= 0) {
+        if (transformFileType.ext.indexOf(contentFileExtension) >= 0) {
 
-            // console.log('Processing known file type: ', knownFileTypeKey);
+            // console.log('Processing transform file type: ', transformFileTypeKey);
 
-            // contentType = knownFileType.contentType;
-            transformedContent = knownFileType.transform(rawContent);
+            transformedContent = transformFileType.transform(rawContent);
             matchFound = true;
 
             return false;
@@ -90,7 +98,6 @@ function getContentJson(knownFileTypes, contentFilePath, contentFileExtension) {
 
     const contentJson = {
         version: '1.0',
-        contentType: contentType,
         content: transformedContent,
     };
 
@@ -98,11 +105,14 @@ function getContentJson(knownFileTypes, contentFilePath, contentFileExtension) {
 }
 
 function getAngularModuleTemplate(
+    contentConfig,
     angularModuleImports,
     angularModuleRoutes,
     angularModuleDeclarations) {
 
-    const templateContent = fs.readFileSync('./build/templates/module.ts', { encoding: 'utf8' });
+    const moduleTemplateFilePath = path.join(contentConfig.ng.templates.dir, contentConfig.ng.templates.module);
+
+    const templateContent = fs.readFileSync(moduleTemplateFilePath, 'utf8');
 
     return templateContent
         .replace('${angularModuleImports}', angularModuleImports)
@@ -111,11 +121,14 @@ function getAngularModuleTemplate(
 }
 
 function getAngularComponentTemplate(
+    contentConfig,
     angularComponentSelector,
     content,
     angularComponentName) {
 
-    const templateContent = fs.readFileSync('./build/templates/component.ts', { encoding: 'utf8' });
+    const componentTemplateFilePath = path.join(contentConfig.ng.templates.dir, contentConfig.ng.templates.component);
+
+    const templateContent = fs.readFileSync(componentTemplateFilePath, 'utf8');
 
     return templateContent
         .replace('${angularComponentSelector}', angularComponentSelector)
@@ -160,21 +173,30 @@ function convertToTitleCase(text) {
         .replace(invalidAngularNameCharacterRegex, '');
 }
 
-function writeAngularComponents(knownFileTypes, contentDirectoryPath) {
+function writeAngularComponents(
+    contentConfig,
+    knownFileTypes,
+    transformFileTypes,
+    contentDirectoryPath) {
 
     const contentFilePaths = fs.readdirSync(contentDirectoryPath);
 
     const angularComponentDeclarations = [];
 
-    contentFilePaths.forEach(contentFilePartialPath => {
+    contentFilePaths.forEach((originalContentFilePartialPath) => {
 
+        const rewriteToIndex = contentConfig.content.rewriteReadmeToIndex &&
+            originalContentFilePartialPath.toLowerCase() === 'readme.md';
+
+        // rename 'README' to 'index'
+        const contentFilePartialPath = rewriteToIndex ? 'index.md' : originalContentFilePartialPath;
+
+        const originalContentFilePath = path.join(contentDirectoryPath, originalContentFilePartialPath);
         const contentFilePath = path.join(contentDirectoryPath, contentFilePartialPath);
         const contentFileExtension = path.extname(contentFilePath);
         const contentFilePathWithoutExtension = contentFilePartialPath.replace(contentFileExtension, '');
 
-        // console.log('Content file', contentFilePath, contentFileExtension);
-
-        const contentJson = getContentJson(knownFileTypes, contentFilePath, contentFileExtension);
+        const contentJson = getContentJson(transformFileTypes, originalContentFilePath, contentFileExtension);
 
         const angularComponentFileNameWithoutExtension = `${contentFilePathWithoutExtension}.page`.toLowerCase();
         const angularComponentFileName = `${angularComponentFileNameWithoutExtension}${knownFileTypes.typescript.ext[0]}`;
@@ -182,11 +204,12 @@ function writeAngularComponents(knownFileTypes, contentDirectoryPath) {
         const angularComponentName = `${convertToTitleCase(contentFilePathWithoutExtension)}Page`;
 
         const angularComponentContent = getAngularComponentTemplate(
+            contentConfig,
             angularComponentSelector,
             contentJson.content,
             angularComponentName);
 
-        const angularFilePath = path.join('./src/app/content', angularComponentFileName);
+        const angularFilePath = path.join(contentConfig.ng.module.dir, contentConfig.ng.module.targetDir, angularComponentFileName);
 
         angularComponentDeclarations.push({
             importFileName: angularComponentFileNameWithoutExtension,
@@ -201,22 +224,25 @@ function writeAngularComponents(knownFileTypes, contentDirectoryPath) {
     return angularComponentDeclarations;
 }
 
-function writeAngularModule(knownFileTypes, angularComponentDeclarations) {
+function writeAngularModule(contentConfig, knownFileTypes, angularComponentDeclarations) {
 
     const angularModuleTemplateData = buildAngularModuleTemplateData(angularComponentDeclarations)
 
     const angularModuleContent = getAngularModuleTemplate(
+        contentConfig,
         angularModuleTemplateData.imports,
         angularModuleTemplateData.routes,
         angularModuleTemplateData.declarations);
 
-    const angulareModuleFilePath = path.join('./src/app/content', 'content.module' + knownFileTypes.typescript.ext[0]).toLowerCase();
+    const angularContentModuleFileName = 'pages.module' + knownFileTypes.typescript.ext[0];
+
+    const angulareModuleFilePath = path.join(contentConfig.ng.module.dir, contentConfig.ng.module.targetDir, angularContentModuleFileName).toLowerCase();
 
     console.log('Writing content to angular path', angulareModuleFilePath);
     fs.writeFileSync(angulareModuleFilePath, angularModuleContent);
 }
 
-function buildContent(contentDirectoryPath, angularContentDirectoryPath) {
+function buildContent(contentConfig, contentDirectoryPath, angularContentDirectoryPath) {
 
     if (!fs.existsSync(angularContentDirectoryPath)) {
         console.log('Create angular content directory', angularContentDirectoryPath);
@@ -224,12 +250,20 @@ function buildContent(contentDirectoryPath, angularContentDirectoryPath) {
     }
 
     const knownFileTypes = getKnownFileTypes();
+    const transformFileTypes = getTransformFileTypes(knownFileTypes);
 
-    fs.copyFileSync('./build/templates/content.scss', path.join(angularContentDirectoryPath, './content.scss'));
+    const stylePathSource = path.join(contentConfig.ng.templates.dir, contentConfig.ng.templates.style);
+    const stylePathTarget = path.join(angularContentDirectoryPath, contentConfig.ng.templates.style);
 
-    const angularComponentDeclarations = writeAngularComponents(knownFileTypes, contentDirectoryPath);
+    fs.copyFileSync(stylePathSource, stylePathTarget);
 
-    writeAngularModule(knownFileTypes, angularComponentDeclarations);
+    const angularComponentDeclarations = writeAngularComponents(
+        contentConfig,
+        knownFileTypes,
+        transformFileTypes,
+        contentDirectoryPath);
+
+    writeAngularModule(contentConfig, knownFileTypes, angularComponentDeclarations);
 }
 
 console.log('Building content...');

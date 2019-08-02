@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+import { IonicModule } from '@ionic/angular';
+
+import { ContentFeaturesModule } from '../features/features.module';
 
 /* tslint:disable */
 ${angularModuleImports}
@@ -10,6 +13,7 @@ ${angularModuleImports}
     imports: [
         CommonModule,
         IonicModule,
+        ContentFeaturesModule,
         RouterModule.forChild([
             { path: '', component: IndexPage },
             ${angularModuleRoutes},
@@ -17,6 +21,6 @@ ${angularModuleImports}
     ],
     declarations: [
         ${angularModuleDeclarations},
-    ]
+    ],
 })
-export class ContentModule { }
+export class ContentPagesModule { }

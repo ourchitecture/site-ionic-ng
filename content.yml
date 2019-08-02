@@ -1,0 +1,13 @@
+content:
+    dir: './content'
+    rewriteReadmeToIndex: true
+
+ng:
+    module:
+        dir: './src/app'
+        targetDir: './content/pages'
+    templates:
+        dir: './build/templates'
+        style: './content.scss'
+        module: './module.ts'
+        component: './component.ts'

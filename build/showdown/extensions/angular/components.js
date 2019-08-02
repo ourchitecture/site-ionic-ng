@@ -1,9 +1,8 @@
 
 /**
- * Showdown's Extension boilerplate
+ * Showdown Extension for converting component extensions into Angular component references.
  *
- * A boilerplate from where you can easily build extensions
- * for showdown
+ * Converts [*myComponent] into an Angular component <myComponent></myComponent>.
  */
 (function (extension) {
     'use strict';
@@ -32,38 +31,17 @@
     // If you have regexes or some piece of calculation that is immutable
     // this is the best place to put them.
 
-    const extensionName = 'ionic-wiki-page-links';
-    const ionicLinkRegex = /\[\[([^\]\]]+)\]\]/g;
-    const invalidLinkCharacterRegex = /[^a-z0-9-_]/g;
-    const multipleHyphenRegex = /[-]+/;
-    const HYPHEN = '-';
+    const extensionName = 'ng-components';
 
     // The following method will register the extension with showdown
-    showdown.extension(extensionName, function () {
+    showdown.extension(extensionName, () => {
 
         console.log(`Loaded showdown estension: ${extensionName}`);
 
         return {
             type: 'lang', //or output
-            filter: (rawMarkdown, converter, options) => {
-
-                // console.log(`showdown [${extensionName}]: filtering...`);
-
-                let transformedMarkdown = rawMarkdown;
-
-                transformedMarkdown = transformedMarkdown.replace(ionicLinkRegex, (match, wikiPageTokenName) => {
-
-                    const pageName = wikiPageTokenName;
-                    const pageRelativeUrl = `/` + pageName
-                        .toLowerCase()
-                        .replace(invalidLinkCharacterRegex, HYPHEN)
-                        .replace(multipleHyphenRegex, HYPHEN);
-
-                    return `<a routerLink="${pageRelativeUrl}">${wikiPageTokenName}</a>`;
-                });
-
-                return transformedMarkdown;
-            },
+            regex: /[\[][*]([^*]+)[\]]/gi,
+            replace: '<$1></$1>',
         };
     });
 }));

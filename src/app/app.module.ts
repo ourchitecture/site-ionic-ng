@@ -12,9 +12,10 @@ import { MatCommonModule } from '@angular/material';
 
 import { CovalentCommonModule } from '@covalent/core';
 
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
    declarations: [

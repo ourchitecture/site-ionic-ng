@@ -2,12 +2,7 @@
 
 Dedicated to Open Architecture, this site provides some useful resources for Technology Architects and the people they work with.
 
-<div>
-Help support this effort with a contribution.
-<ion-chip color="primary">
-    <ion-label><a href="https://www.patreon.com/bePatron?u=22778259">Become a Patron!</a></ion-label>
-</ion-chip>
-</div>
+[*app-patreon]
 
 **Business people:** working with technologists will be hard because you do not usually understand technology and they do not usually understand business. You generate waste when you do not focus on enabling valuable outcomes.
 

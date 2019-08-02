@@ -1,9 +1,8 @@
 
 /**
- * Showdown's Extension boilerplate
+ * Showdown Extension for converting Wiki style links into Angular router links.
  *
- * A boilerplate from where you can easily build extensions
- * for showdown
+ * Converts [[Wiki Page]] links into Angular <a routerLink="/wiki-page">Wiki Page</a> router links.
  */
 (function (extension) {
     'use strict';
@@ -32,8 +31,11 @@
     // If you have regexes or some piece of calculation that is immutable
     // this is the best place to put them.
 
-    const extensionName = 'src-asset-links';
-    const srcAssetLinkRegex = /[.][.]\/src\/assets\//g;
+    const extensionName = 'ng-wiki-page-links';
+    const ionicLinkRegex = /\[\[([^\]\]]+)\]\]/g;
+    const invalidLinkCharacterRegex = /[^a-z0-9-_]/g;
+    const multipleHyphenRegex = /[-]+/;
+    const HYPHEN = '-';
 
     // The following method will register the extension with showdown
     showdown.extension(extensionName, () => {
@@ -41,9 +43,26 @@
         console.log(`Loaded showdown estension: ${extensionName}`);
 
         return {
-            type: 'lang', // or output
-            regex: srcAssetLinkRegex,
-            replace: './assets/',
+            type: 'lang', //or output
+            filter: (rawMarkdown, converter, options) => {
+
+                // console.log(`showdown [${extensionName}]: filtering...`);
+
+                let transformedMarkdown = rawMarkdown;
+
+                transformedMarkdown = transformedMarkdown.replace(ionicLinkRegex, (match, wikiPageTokenName) => {
+
+                    const pageName = wikiPageTokenName;
+                    const pageRelativeUrl = `/` + pageName
+                        .toLowerCase()
+                        .replace(invalidLinkCharacterRegex, HYPHEN)
+                        .replace(multipleHyphenRegex, HYPHEN);
+
+                    return `<a routerLink="${pageRelativeUrl}">${wikiPageTokenName}</a>`;
+                });
+
+                return transformedMarkdown;
+            },
         };
     });
 }));

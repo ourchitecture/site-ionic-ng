@@ -1,9 +1,8 @@
 
 /**
- * Showdown's Extension boilerplate
+ * Showdown Extension for removing paragraph wrapper around HTML.
  *
- * A boilerplate from where you can easily build extensions
- * for showdown
+ * Removes <p></p> when it's content is HTML.
  */
 (function (extension) {
     'use strict';
@@ -32,18 +31,32 @@
     // If you have regexes or some piece of calculation that is immutable
     // this is the best place to put them.
 
-    const extensionName = 'src-asset-links';
-    const srcAssetLinkRegex = /[.][.]\/src\/assets\//g;
+    const extensionName = 'html-remove-p';
+
+    // test regex here: https://jsfiddle.net/tivie/ypjzcuLv/
+    const htmlElementRegEx = /^ {0,3}<[a-z]+\b[^>]*>((.*?)<\/[a-z]+\b[^>]*>)?$/gmi;
 
     // The following method will register the extension with showdown
     showdown.extension(extensionName, () => {
 
         console.log(`Loaded showdown estension: ${extensionName}`);
 
-        return {
-            type: 'lang', // or output
-            regex: srcAssetLinkRegex,
-            replace: './assets/',
-        };
+        return [{
+            type: 'listener',
+            listeners: {
+                'hashHTMLBlocks.after': (event, text, converter, options, globals) => {
+
+                    // console.log('[hashHTMLBlocks.after] text', text);
+
+                    const newText = text.replace(htmlElementRegEx, (wm) => {
+                        return '\n\n¨K' + (globals.gHtmlBlocks.push(wm) - 1) + 'K\n\n';
+                    });
+
+                    // console.log('[hashHTMLBlocks.after] newText', newText);
+
+                    return newText;
+                }
+            }
+        }];
     });
 }));
