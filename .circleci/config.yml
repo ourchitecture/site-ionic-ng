@@ -35,21 +35,21 @@ jobs:
                 paths:
                     - www
 
-site-deploy:
-    docker:
-        - image: node:8.10.0
-    steps:
-        - checkout
-        - attach_workspace:
-            at: www
-        - run:
-            name: Setup Pages Deployment
-            command: |
-                git config user.email "ci-build@ourchitecture.github.io"
-                git config user.name "ci-build"
-        - run:
-            name: Deploy docs to gh-pages branch
-            command: npx gh-pages@2.0.1 -d www -r https://github.com/ourchitecture/ourchitecture.github.com -b master
+    site-deploy:
+        docker:
+            - image: node:8.10.0
+        steps:
+            - checkout
+            - attach_workspace:
+                at: www
+            - run:
+                name: Setup Pages Deployment
+                command: |
+                    git config user.email "ci-build@ourchitecture.github.io"
+                    git config user.name "ci-build"
+            - run:
+                name: Deploy docs to gh-pages branch
+                command: npx gh-pages@2.0.1 -d www -r https://github.com/ourchitecture/ourchitecture.github.com -b master
 
 workflows:
     version: 2
