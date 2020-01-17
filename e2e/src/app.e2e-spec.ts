@@ -7,8 +7,8 @@ describe('new App', () => {
         page = new AppPage();
     });
 
-    it('should have title', () => {
-        page.navigateTo();
-        expect(page.getTitle()).toContain('Welcome to Ourchitecture');
+    it('should have title', async() => {
+        await page.navigateTo();
+        expect(await page.getTitle()).toContain('Welcome to Ourchitecture');
     });
 });
