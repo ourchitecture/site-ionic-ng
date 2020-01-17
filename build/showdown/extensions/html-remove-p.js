@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 /**
  * Showdown Extension for removing paragraph wrapper around HTML.

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');

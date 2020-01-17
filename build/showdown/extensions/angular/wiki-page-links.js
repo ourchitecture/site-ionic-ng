@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 /**
  * Showdown Extension for converting Wiki style links into Angular router links.

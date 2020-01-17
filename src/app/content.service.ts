@@ -10,7 +10,7 @@ export class ContentService {
     constructor(private http: HttpClient) {
     }
 
-    async get(name: string, path: string = '') {
+    async get(name: string, path = '') {
 
         if (path.length > 0 && !path.startsWith('/')) {
             throw new Error('Path should start with /');

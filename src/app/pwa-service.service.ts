@@ -10,7 +10,7 @@ export class PwaService {
 
     constructor(private swUpdate: SwUpdate) {
 
-        this.swUpdate.available.subscribe(event => {
+        this.swUpdate.available.subscribe(() => {
             console.log('[ourchitecture] sw.update.available()');
             if (this.askUserToUpdate()) {
                 window.location.reload();

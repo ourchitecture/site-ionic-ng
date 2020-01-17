@@ -1,6 +1,6 @@
+/* eslint-disable */
 import { Component } from '@angular/core';
 
-/* tslint:disable */
 @Component({
     selector: '${angularComponentSelector}',
     styleUrls: ['content.scss'],

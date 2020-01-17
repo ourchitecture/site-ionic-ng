@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 /**
  * Showdown Extension for converting component extensions into Angular component references.

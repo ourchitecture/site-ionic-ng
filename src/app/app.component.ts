@@ -54,6 +54,7 @@ export class AppComponent implements OnInit {
                         this.title.setTitle(pageTitle);
                     }
 
+                    /* eslint-disable @typescript-eslint/camelcase */
                     const pageViewData = {
                         page_title: pageTitle,
                         page_path: navEndEvent.urlAfterRedirects,
@@ -61,10 +62,12 @@ export class AppComponent implements OnInit {
 
                     console.log('Sending page view to GA', pageViewData);
 
+                    // eslint-disable-line @typescript-eslint/camelcase
                     (window as any).gtag('config', 'UA-144592331-1', {
                         page_title: pageTitle,
                         page_path: navEndEvent.urlAfterRedirects,
                     });
+                    /* eslint-enable @typescript-eslint/camelcase */
                 }
 
             } catch (gaError) {
