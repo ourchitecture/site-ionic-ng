@@ -23,7 +23,9 @@
         "build": "ng build",
         "test": "ng test",
         "lint:config": "tslint-config-prettier-check ./tslint.json",
-        "lint": "ng lint",
+        "lint:prettier": "prettier -c **/*.{js,ts,json,jsx,tsx,htm,html,xml}",
+        "lint:ng": "ng lint",
+        "lint": "run-s lint:prettier lint:ng",
         "lint:fix": "pretty-quick --staged",
         "precommit": "run-s lint:fix lint",
         "e2e": "ng e2e"
