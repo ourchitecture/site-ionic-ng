@@ -9,8 +9,6 @@ describe('new App', () => {
 
     it('should be blank', () => {
         page.navigateTo();
-        expect(page.getParagraphText()).toContain(
-            'Welcome to Ourchitecture!'
-        );
+        expect(page.getParagraphText()).toContain('Welcome to Ourchitecture!');
     });
 });
