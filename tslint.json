@@ -8,7 +8,6 @@
             "severity": "warn"
         },
         "import-blacklist": [true, "rxjs/Rx"],
-        "indent": [true, "spaces", 4],
         "interface-name": false,
         "max-classes-per-file": false,
         "member-access": false,

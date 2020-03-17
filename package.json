@@ -27,7 +27,7 @@
         "lint:ng": "ng lint",
         "lint": "run-s lint:prettier lint:ng",
         "lint:fix": "pretty-quick --staged",
-        "precommit": "run-s lint:fix lint",
+        "precommit": "run-s lint:config lint:fix lint",
         "e2e": "ng e2e"
     },
     "dependencies": {
