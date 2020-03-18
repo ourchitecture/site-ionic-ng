@@ -29,9 +29,11 @@
         "test:lint": "run-s lint:prettier lint:ng",
         "lint:commit": "run-s lint:config lint:fix test:lint",
         "test:unit": "ng test",
+        "test:unit:ci": "ng test -c ci",
         "test:e2e": "ng e2e",
+        "test:e2e:ci": "ng e2e -c ci",
         "test": "run-s test:lint test:unit test:e2e",
-        "test:ci": "npm test"
+        "test:ci": "run-s test:lint test:unit:ci test:e2e:ci"
     },
     "husky": {
         "hooks": {
