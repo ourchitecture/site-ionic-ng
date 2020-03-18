@@ -8,6 +8,10 @@ exports.config = {
     specs: ['./src/**/*.e2e-spec.ts'],
     capabilities: {
         browserName: 'chrome',
+        chromeOptions: {
+            args: ['--headless', '--no-sandbox', '--disable-gpu'],
+            binary: require('puppeteer').executablePath(),
+        },
     },
     directConnect: true,
     baseUrl: 'http://localhost:4200/',
