@@ -21,14 +21,17 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
-        "test": "ng test",
+        "build:ci": "ng build --prod",
         "lint:config": "tslint-config-prettier-check ./tslint.json",
-        "lint:prettier": "prettier -c **/*.{js,ts,json,jsx,tsx,htm,html,xml}",
+        "lint:prettier": "prettier -c **/*.{js,ts,json,jsx,tsx,htm,html,xml,yml,yaml,md}",
         "lint:ng": "ng lint",
-        "lint": "run-s lint:prettier lint:ng",
         "lint:fix": "pretty-quick --staged",
-        "lint:commit": "run-s lint:config lint:fix lint",
-        "e2e": "ng e2e"
+        "test:lint": "run-s lint:prettier lint:ng",
+        "lint:commit": "run-s lint:config lint:fix test:lint",
+        "test:unit": "ng test",
+        "test:e2e": "ng e2e",
+        "test": "run-s test:lint test:unit test:e2e",
+        "test:ci": "npm test"
     },
     "husky": {
         "hooks": {
