@@ -1,47 +1,26 @@
-// http://ionicframework.com/docs/theming/
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
 
 /* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
+@import '~@ionic/angular/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/display.css";
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
-
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-@import "~@angular/material/theming";
-@import "~@covalent/core/theming/all-theme";
-
-// (optional) Additional themes
-@import "~@covalent/markdown/markdown-theme";
-
-// Define a custom typography config that overrides the font-family
-// or any typography level.
-$typography: mat-typography-config(
-  $font-family: "Roboto, monospace",
-  $headline: mat-typography-level(32px, 48px, 700)
-);
-
-@include mat-core($typography); // $typography is an **optional** argument for the mat-core
-
-$primary: mat-palette($mat-orange, 800, 100, 900);
-$accent: mat-palette($mat-light-blue, 600, 100, 900);
-
-$warn: mat-palette($mat-red, 600, 100, 900);
-
-$theme: mat-light-theme($primary, $accent, $warn);
-
-@include angular-material-theme($theme);
-@include covalent-theme($theme, $typography); // $typography is an **optional** argument for the covalent-theme
-
-// (optional) Additional themes
-@include covalent-markdown-theme($theme);
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';

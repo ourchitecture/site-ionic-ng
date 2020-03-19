@@ -5,88 +5,30 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "start",
-            "isBackground": true,
-            "presentation": {
-                "focus": true,
-                "panel": "dedicated"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": {
-                "owner": "typescript",
-                "source": "ts",
-                "applyTo": "closedDocuments",
-                "fileLocation": [
-                    "relative",
-                    "${cwd}"
-                ],
-                "pattern": "$tsc",
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": {
-                        "regexp": "(.*?)"
-                    },
-                    "endsPattern": {
-                        "regexp": "Compiled |Failed to compile."
-                    }
-                }
-            }
-        },
-        {
-            "type": "npm",
             "script": "build",
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "e2e",
-            "problemMatcher": []
+            "group": "build"
         },
         {
             "type": "npm",
             "script": "build:ci",
-            "group": "build",
-            "problemMatcher": []
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
+            "label": "start",
             "type": "npm",
-            "script": "lint:ci",
-            "problemMatcher": []
+            "script": "start",
+            "group": "none"
         },
         {
-            "type": "npm",
-            "script": "test:ci",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "lint",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "e2e:ci",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "build:content",
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "start:prod",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "build:content:ci",
-            "group": "build",
+            "label": "end task",
+            "type": "process",
+            "command": [
+                "${command:workbench.action.tasks.terminate}",
+                "${command:workbench.action.acceptSelectedQuickOpenItem}"
+            ],
             "problemMatcher": []
         }
     ]

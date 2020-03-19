@@ -5,7 +5,7 @@ export class AppPage {
         return browser.get('/');
     }
 
-    getTitle() {
-        return element(by.deepCss('app-root ion-content h1')).getText();
+    getParagraphText() {
+        return element(by.deepCss('app-root ion-content')).getText();
     }
 }
